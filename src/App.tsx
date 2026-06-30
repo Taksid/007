@@ -16,11 +16,30 @@ export default function App() {
 
   if (view === 'privacy') {
     return <LegalView title="Privacy Policy" onBack={() => setView('home')} content={
-        <div>
-            <p className="mb-4">Developer: BENTON XON DEV INC</p>
-            <p className="mb-4">Company: MUSA JEWELLERS</p>
-            <p className="mb-4">Email: bhakwbovyab@gmail.com</p>
-            <p>This privacy policy applies to the 007 Smart Service Platform application...</p>
+        <div className="space-y-4">
+            <p className="font-bold">Effective Date: 2026-06-30</p>
+            <p>This privacy policy applies to the 007 Filter Master app for mobile devices, together with any related services operated by BENTON XON DEV INC (collectively, the "Application"). BENTON XON DEV INC is hereby referred to as the "Service Provider".</p>
+            
+            <h3 className="text-xl font-bold mt-4">Information Collection and Use</h3>
+            <p>The Application collects information when you download and use it. This information may include information such as: Your device's Internet Protocol address; The pages of the Application that you visit, the time and date of your visit, the time spent on those pages; The time spent on the Application; your mobile operating system you use.</p>
+
+            <h3 className="text-xl font-bold mt-4">Cookies and tracking technologies</h3>
+            <p>The Application or its third-party SDKs may use cookies, SDKs, pixels, and similar technologies to support functionality, analytics, or service delivery. Where required by applicable law, the Service Provider will obtain consent before using non-essential tracking technologies.</p>
+
+            <h3 className="text-xl font-bold mt-4">Your Rights</h3>
+            <p>You may request access to, correction of, or deletion of your personal data held by the Service Provider. To exercise these rights, or to withdraw consent where processing is based on consent, contact the Service Provider at bhakwbovyab@gmail.com.</p>
+
+            <h3 className="text-xl font-bold mt-4">Your California privacy rights (CCPA/CPRA)</h3>
+            <p>If you are a California resident, you have the right to know what personal information is collected, the right to delete personal information, the right to opt out of the sale or sharing of personal information, and the right to non-discrimination for exercising these rights. To exercise your CCPA/CPRA rights, contact the Service Provider at bhakwbovyab@gmail.com.</p>
+
+            <h3 className="text-xl font-bold mt-4">Data Retention Policy</h3>
+            <p>The Service Provider retains personal data based on its necessity for the stated purposes. You may request deletion of your personal data, subject to any legal obligation to retain it. If you want the Service Provider to delete User Provided Data submitted through the Application, please contact them at bhakwbovyab@gmail.com.</p>
+
+            <h3 className="text-xl font-bold mt-4">Children</h3>
+            <p>The Application is not intended for children under 16 years of age. The Service Provider does not knowingly collect personally identifiable information from children.</p>
+            
+            <h3 className="text-xl font-bold mt-4">Contact Us</h3>
+            <p>If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at bhakwbovyab@gmail.com.</p>
         </div>
     } />;
   }
