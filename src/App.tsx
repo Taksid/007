@@ -7,10 +7,29 @@ import { Bot, Zap, ShieldCheck, Headphones, MessageCircle, Languages } from 'luc
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { translations } from './translations';
+import LegalView from './components/LegalView';
 
 export default function App() {
   const [lang, setLang] = useState<'zh' | 'en'>('zh');
+  const [view, setView] = useState<'home' | 'privacy' | 'terms'>('home');
   const t = translations[lang];
+
+  if (view === 'privacy') {
+    return <LegalView title="Privacy Policy" onBack={() => setView('home')} content={
+        <div>
+            <p className="mb-4">Developer: BENTON XON DEV INC</p>
+            <p className="mb-4">Company: MUSA JEWELLERS</p>
+            <p className="mb-4">Email: bhakwbovyab@gmail.com</p>
+            <p>This privacy policy applies to the 007 Smart Service Platform application...</p>
+        </div>
+    } />;
+  }
+  
+  if (view === 'terms') {
+    return <LegalView title="Terms and Conditions" onBack={() => setView('home')} content={
+        <p>By using the 007 Smart Service Platform, you agree to these terms...</p>
+    } />;
+  }
 
   return (
     <div className="min-h-screen bg-[#0F1C2E] text-[#F5F5F5] font-sans">
@@ -130,6 +149,10 @@ export default function App() {
       </main>
 
       <footer className="px-12 py-8 border-t border-white/10 text-center text-[10px] opacity-40 uppercase tracking-[0.4em]">
+        <div className="mb-4 space-x-4">
+          <button onClick={() => setView('privacy')} className="hover:text-white">Privacy Policy</button>
+          <button onClick={() => setView('terms')} className="hover:text-white">Terms and Conditions</button>
+        </div>
         &copy; {t.footer}
       </footer>
     </div>
