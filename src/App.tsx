@@ -5,14 +5,24 @@
 
 import { Bot, Zap, ShieldCheck, Headphones, MessageCircle, Languages } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { translations } from './translations';
 import LegalView from './components/LegalView';
+import Preloader from './components/Preloader';
+import ContactForm from './components/ContactForm';
 
 export default function App() {
   const [lang, setLang] = useState<'zh' | 'en'>('zh');
   const [view, setView] = useState<'home' | 'privacy' | 'terms'>('home');
+  const [isLoading, setIsLoading] = useState(true);
   const t = translations[lang];
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <Preloader />;
 
   if (view === 'privacy') {
     return <LegalView title="Privacy Policy" onBack={() => setView('home')} content={
@@ -54,20 +64,20 @@ export default function App() {
     <div className="min-h-screen bg-[#0F1C2E] text-[#F5F5F5] font-sans">
       {/* Hero Section */}
       <header className="border-b border-white/10">
-        <nav className="max-w-7xl mx-auto px-12 py-8 flex items-center justify-between">
+        <nav className="max-w-7xl mx-auto px-6 md:px-12 py-8 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src="https://i.ibb.co/dw5XQkFd/1782813691283.png" alt="Logo" className="w-10 h-10 object-contain" referrerPolicy="no-referrer" />
-            <span className="text-sm tracking-[0.3em] font-bold uppercase">{t.nav}</span>
+            <img src="https://i.ibb.co/dw5XQkFd/1782813691283.png" alt="Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" referrerPolicy="no-referrer" />
+            <span className="text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] font-bold uppercase">{t.nav}</span>
           </div>
-          <div className='flex items-center gap-6'>
+          <div className='flex items-center gap-3 md:gap-6'>
             <button onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
-                <Languages size={20} />
+                <Languages size={18} />
             </button>
             <a
               href="https://t.me/go007_bot"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-[#0088CC] text-white font-black uppercase text-sm tracking-widest hover:opacity-90 transition"
+              className="px-4 md:px-6 py-2 md:py-3 bg-[#0088CC] text-white font-black uppercase text-xs md:text-sm tracking-widest hover:opacity-90 transition"
             >
               {t.startBot}
             </a>
@@ -75,27 +85,27 @@ export default function App() {
         </nav>
       </header>
 
-      <main className="max-w-7xl mx-auto px-12 py-16">
-        <section className="py-16 text-center border-b border-white/10">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-16">
+        <section className="py-8 md:py-16 text-center border-b border-white/10">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-8xl font-black tracking-tighter uppercase mb-6"
+            animate={{ x: [0, 20, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="text-4xl md:text-8xl font-black tracking-tighter uppercase mb-6"
           >
             {t.heroTitle1}<br/>
             <span className="text-[#0088CC]">{t.heroTitle2}</span>
           </motion.h1>
           
-          <div className="mb-12">
+          <div className="mb-8 md:mb-12">
             <img 
-              src="https://i.ibb.co/cKv1414r/IMG-20260630-154933-463.jpg" 
+              src="https://i.ibb.co/SD4YF9ZG/b712443f4c644d679f32ac691bebe9db.png" 
               alt="007 Smart Service Platform" 
-              className="mx-auto rounded-lg shadow-2xl max-w-md border border-white/10" 
+              className="mx-auto rounded-lg shadow-2xl max-w-full md:max-w-md border border-white/10" 
               referrerPolicy="no-referrer"
             />
           </div>
 
-          <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="text-lg md:text-xl text-white/60 mb-8 md:mb-12 max-w-2xl mx-auto font-light leading-relaxed">
             {t.heroSubtitle}
           </p>
           <a
@@ -137,11 +147,11 @@ export default function App() {
         {/* Collection Section */}
         <section className="py-16 border-b border-white/10">
           <h2 className="text-4xl font-bold text-center mb-12 uppercase tracking-tight">{t.collection}</h2>
-          <div className="flex justify-center">
+          <div className="flex justify-center px-4">
              <img 
               src="https://i.ibb.co/846Lyt4s/Screenshot-20260630-160453-Telegram.jpg" 
               alt="Channel Collection" 
-              className="rounded-lg shadow-2xl max-w-2xl border border-white/10" 
+              className="rounded-lg shadow-2xl w-full max-w-2xl border border-white/10" 
               referrerPolicy="no-referrer"
             />
           </div>
@@ -150,6 +160,9 @@ export default function App() {
         {/* Contact Section */}
         <section className="py-20 text-center">
           <h2 className="text-3xl font-bold mb-12 uppercase tracking-tight">{t.contact}</h2>
+          <div className="mb-16">
+            <ContactForm t={t} />
+          </div>
           <div className="flex flex-col md:flex-row justify-center gap-12">
             <a href="https://t.me/s8s8s" target="_blank" className="flex flex-col items-center gap-2 text-white/60 hover:text-[#0088CC] transition">
               <span className="text-[10px] uppercase opacity-40">{t.tgId}</span>
@@ -167,7 +180,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="px-12 py-8 border-t border-white/10 text-center text-[10px] opacity-40 uppercase tracking-[0.4em]">
+      <footer className="px-6 md:px-12 py-8 border-t border-white/10 text-center text-[10px] opacity-40 uppercase tracking-[0.4em]">
         <div className="mb-4 space-x-4">
           <button onClick={() => setView('privacy')} className="hover:text-white">Privacy Policy</button>
           <button onClick={() => setView('terms')} className="hover:text-white">Terms and Conditions</button>
